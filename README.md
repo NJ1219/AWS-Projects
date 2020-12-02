@@ -9,15 +9,15 @@
 
 ### Background
 
-You were hired as a digital transformation consultant by one of the most prominent retirement plan providers in the country; they want to increase their client portfolio, especially by engaging young people. Since machine learning and NLP are disrupting finance to improve customer experience, you decide to create a robo advisor that could be used by customers or potential new customers to get investment portfolio recommendations for retirement.
+As a digital transformation consultant of the most prominent retirement plan providers in the country; it is required to increase the client portfolio, especially by engaging young people. Since machine learning and NLP are disrupting finance to improve customer experience, it is decided to create a robo advisor that could be used by customers or potential new customers to get investment portfolio recommendations for retirement.
 
-In this homework assignment, you will combine your new Amazon Web Services skills with your already mastered Python superpowers, to create a bot that will recommend an investment portfolio for a retirement plan.
+In this project, combine Amazon Web Services skills with Python, to create a bot that will recommend an investment portfolio for a retirement plan.
 
-You are asked to accomplish the following main tasks:
+It is required to accomplish the following main tasks:
 
 1. **[Initial Robo Advisor Configuration:](#Initial-Robo-Advisor-Configuration)** Define an Amazon Lex bot with a single intent that establishes a conversation about the requirements to suggest an investment portfolio for retirement.
 
-2. **[Build and Test the Robo Advisor](#Build-and-Test-the-Robo-Advisor):** Make sure that your bot is working and responding accurately along with the conversation with the user, by building and testing it.
+2. **[Build and Test the Robo Advisor](#Build-and-Test-the-Robo-Advisor):** Made sure that the bot is working and responding accurately along with the conversation with the user, by building and testing it.
 
 3. **[Enhance the Robo Advisor with an Amazon Lambda Function:](#Enhance-the-Robo-Advisor-with-an-Amazon-Lambda-Function)** Create an Amazon Lambda function that validates the user's input and returns the investment portfolio recommendation. This task includes testing the Amazon Lambda function and making the integration with the bot.
 
@@ -37,9 +37,9 @@ You are asked to accomplish the following main tasks:
 
 #### Initial Robo Advisor Configuration
 
-In this section, you will create the `RoboAdvisor` bot and add an intent with its corresponding slots.
+First step is to create the `RoboAdvisor` bot and add an intent with its corresponding slots.
 
-Sign in into your AWS Management Console and [create a new custom Amazon Lex bot](https://console.aws.amazon.com/lex/home). Use the following parameters:
+The following parameters were used:
 
 * **Bot name:** RoboAdvisor
 * **Output voice**: Salli
@@ -47,9 +47,9 @@ Sign in into your AWS Management Console and [create a new custom Amazon Lex bot
 * **Sentiment analysis:** No
 * **COPPA**: No
 * **Advanced options**: No
-* *Leave default values for all other options.*
+* *Left default values for all other options.*
 
-Create the `RecommendPortfolio` intent, and configure some sample utterances as follows (you can add more utterances as you wish):
+Created the `RecommendPortfolio` intent, and configured some sample utterances as follows (more utterances can be added as required):
 
 * I want to save money for my retirement
 * I'm ​`{age}​` and I would like to invest for my retirement
@@ -59,12 +59,12 @@ Create the `RecommendPortfolio` intent, and configure some sample utterances as 
 * I want to invest for my retirement
 * I would like to invest for my retirement
 
-Move to the *Confirmation Prompt* section, and set the following messages:
+The following messages were set in the *Confirmation Prompt* section:
 
 * **Confirm:** Thanks, now I will look for the best investment portfolio for you.
 * **Cancel:** I will be pleased to assist you in the future.
 
- This bot will utilize use four slots, three using built-in types and one custom slot named `riskLevel`. Define the three initial slots as follows:
+ This bot will utilize four slots, three using built-in types and one custom slot named `riskLevel`. The three initial slots are as follows:
 
 
 | Name             | Slot Type            | Prompt                                                                    |
@@ -73,7 +73,7 @@ Move to the *Confirmation Prompt* section, and set the following messages:
 | age              | AMAZON.NUMBER        | How old are you?                                                          |
 | investmentAmount | AMAZON.NUMBER        | How much do you want to invest?                                           |
 
-The `riskLevel` custom slot will be used to retrieve the risk level the user is willing to take on the investment portfolio. Create this custom slot as follows:
+The `riskLevel` custom slot will be used to retrieve the risk level the user is willing to take on the investment portfolio. The custom slot was built as follows:
 
 * Select the `+` icon next to 'Slot Types' in the 'Editor' on the left side of the screen.
 * Choose `create custom slot` from the resulting display window.
@@ -81,17 +81,17 @@ The `riskLevel` custom slot will be used to retrieve the risk level the user is 
 * Select the radial dial button next to **Restrict to Slot values and synonyms**, then fill in the appropriate values and synonums. *Example*: Low, Minimal; High, Maximum.
 * Click `Add slot to intent` when finished.
 
-To format the response cards for the intent, click on the gear icon next to the intent as seen in the image below:
+To format the response cards for the intent, the gear icon next to the intent can be clicked as seen in the image below:
 
 ![gear_icon](Images/gear_icon.png)
 
-Next, input the following data in the resulting display window:
+Next, the following data was inputted in the resulting display window:
 
 * **Prompt:** What level of investment risk would you like to take?
 * **Maximum number of retries:** 2
 * **Prompt response cards:** 4
 
-Configure the response cards for the `riskLevel` slot as is shown bellow:
+Configured the response cards for the `riskLevel` slot as shown bellow:
 
 | Card 1                              | Card 2                              |
 | ----------------------------------- | ----------------------------------- |
@@ -101,23 +101,23 @@ Configure the response cards for the `riskLevel` slot as is shown bellow:
 | ----------------------------------- | ----------------------------------- |
 | ![Card 3 sample](Images/card3.png)  | ![Card 4 sample](Images/card4.png)  |
 
-**Note:** You can download free icons from [this website](https://www.iconfinder.com/) or you can use the icons provided on the [`Icons` directory](Icons/).
 
-Leave the error handling configuration for the `RecommendPortfolio` bot with the default values.
+
+The error handling configuration for the `RecommendPortfolio` bot was left with the default values.
 
 ![Error handling configuration](Images/error_handling.png)
 
 #### Build and Test the Robo Advisor
 
-In this section, you will test your Robo Advisor. To build your bot, click on the `Build` button in the upper right hand corner. Once the build is complete, test it in the chatbot window. You should see a conversation like the one below.
+ The Robo Advisor was tested by clicking on the `Build` button in the upper right hand corner. Once the build was complete, it was tested in the chatbot window. One could see a conversation like the one below.
 
 ![Robo Advisor test](Images/bot-test-no-lambda.gif)
 
 #### Enhance the Robo Advisor with an Amazon Lambda Function
 
-In this section, you will create an Amazon Lambda function that will validate the data provided by the user on the Robo Advisor. Start by creating a new lambda function from scratch and name it `recommendPortfolio`. Select Python 3.7 as runtime.
+An Amazon Lambda function was created to validate the data provided by the user on the Robo Advisor. A new lambda function was created from scratch and named `recommendPortfolio`. Selected Python 3.7 as runtime.
 
-In the Lambda function, start by deleting the AWS generated default lines of code, then paste in the starter code provided in [lambda_function.py](Starter_Files/lambda_function.py) and complete the `recommend_portfolio()` function by following these guidelines:
+Completed the `recommend_portfolio()` function by following these guidelines:
 
 ##### User Input Validation
 
@@ -135,31 +135,13 @@ Once the intent is fulfilled, the bot should response with an investment recomme
 * **high:** "20% bonds (AGG), 80% equities (SPY)"
 * **very high:** "0% bonds (AGG), 100% equities (SPY)"
 
-Be creative while coding your solution, you can have all the code on the `recommend_portfolio()` function, or you can split the functionality across different functions, put your Python coding skills in action!
 
-Once you finish coding your lambda function, test it using the [sample test cases](Test_Cases/) provided for this homework.
+Once the coding was finished for the lambda function, it was tested using the [sample test cases](Test_Cases/).
 
-After successfully testing your code, open the Amazon Lex Console and navigate to the `RecommendPortfolio` bot configuration, integrate your new lambda function by selecting it on the _Lambda initialization and validation_ and _Fulfillment_ sections. Build your bot, and you should have a conversation as follows.
+After successfully testing the code, the Amazon Lex Console was opened and navigated to the `RecommendPortfolio` bot configuration, the new lambda function was integrated by selecting it on the _Lambda initialization and validation_ and _Fulfillment_ sections. Built your bot, and it had conversation as follows.
 
 ![Robo Advisor test with Lambda](Images/bot-test-with-lambda.gif)
 
-### Submission
-
-You should create a brand new repository in GitHub and upload the following files to your repo.
-
-* A python script with your final lambda function.
-
-* From the Amazon Lex Console, export your bot, intent, and slot using `Amazon Lex` as the target platform, and upload the ZIP files to your repo.
-
-* Create a short video or animated GIF showing a demo of your Robo Advisor in action from the test window. Upload the video or animated GIF file to your repo.
-
-Once you have uploaded all the files into the repo, post a link to your homework's repository in BootCamp Spot.
-
-### Hints
-
-* If you are using a Mac, you can create a screen-recording using the built-in QuickTime player. Follow [this link](https://support.apple.com/en-us/HT208721#quicktime) to learn more.
-
-* If you are using Windows 10, you can create a screen-recording using the built-in Xbox Game Bar. Follow [this link](https://beta.support.xbox.com/help/friends-social-activity/share-socialize/record-game-clips-game-bar-windows-10) to learn more.
 
 ---
 
@@ -170,21 +152,21 @@ _[Cryptocurrencies coins by Worldspectrum](https://www.pexels.com/@worldspectrum
 
 ### Background
 
-You are a Senior Manager at the Advisory Services team on a [Big Four firm](https://en.wikipedia.org/wiki/Big_Four_accounting_firms). One of your most important clients, a prominent investment bank, is interested in offering a new cryptocurrencies investment portfolio for its customers, however, they are lost in the immense universe of cryptocurrencies. They ask you to help them make sense of it all by generating a report of what cryptocurrencies are available on the trading market and how they can be grouped using classification.  
+Consider, you are a Senior Manager at the Advisory Services team on a [Big Four firm](https://en.wikipedia.org/wiki/Big_Four_accounting_firms). One of your most important clients, a prominent investment bank, is interested in offering a new cryptocurrencies investment portfolio for its customers, however, they are lost in the immense universe of cryptocurrencies. They ask you to help them make sense of it all by generating a report of what cryptocurrencies are available on the trading market and how they can be grouped using classification.  
 
-In this homework assignment, you will put your new unsupervivsed learning and Amazon SageMaker skills into action by clustering cryptocurrencies and creating plots to present your results.
+In this project, the skills in unsupervivsed learning and Amazon SageMaker skills are put into action by clustering cryptocurrencies and creating plots to present the results.
 
-You are asked to accomplish the following main tasks:
+The following main tasks were accomplished:
 
-* **[Data Preprocessing](#Data-Preprocessing):** Prepare data for dimension reduction with PCA and clustering using K-Means.
+* **[Data Preprocessing](#Data-Preprocessing):** Prepared the data for dimension reduction with PCA and clustering using K-Means.
 
-* **[Reducing Data Dimensions Using PCA](#Reducing-Data-Dimensions-Using-PCA):** Reduce data dimension using the `PCA` algorithm from `sklearn`.
+* **[Reducing Data Dimensions Using PCA](#Reducing-Data-Dimensions-Using-PCA):** Reduced the data dimension using the `PCA` algorithm from `sklearn`.
 
-* **[Clustering Cryptocurrencies Using K-Means](#Clustering-Cryptocurrencies-Using-K-Means):** Predict clusters using the cryptocurrencies data using the `KMeans` algorithm from `sklearn`.
+* **[Clustering Cryptocurrencies Using K-Means](#Clustering-Cryptocurrencies-Using-K-Means):** Predicted clusters using the cryptocurrencies data using the `KMeans` algorithm from `sklearn`.
 
-* **[Visualizing Results](#Visualizing-Results):** Create some plots and data tables to present your results.
+* **[Visualizing Results](#Visualizing-Results):** Created some plots and data tables to present the results.
 
-* **[Challenge](#Optional-Challenge):** Deploy your notebook to Amazon SageMaker.
+ Deployed the notebook to Amazon SageMaker.
 
 ---
 
@@ -194,102 +176,93 @@ You are asked to accomplish the following main tasks:
 
 ---
 
-### Instructions
+### Process
 
 #### Data Preprocessing
 
-In this section, you will load the information about cryptocurrencies and perform data preprocessing tasks.  You can choose one of the following methods to load the data:
+The data was loaded into a Pandas DataFrame to continue with the following data preprocessing tasks.
 
-1. Using the provided `CSV` file, create a `Path` object and read the file data directly into a DataFrame named `crypto_df` using `pd.read_csv()`.
-
-2. Using the following `requests` library, retreive the necessary data from the following API endpoint from _CryptoCompare_ - `https://min-api.cryptocompare.com/data/all/coinlist`.  __HINT:__ You will need to use the 'Data' key from the json response, then transpose the DataFrame. Name your DataFrame `crypto_df`.
-
-
-With the data loaded into a Pandas DataFrame, continue with the following data preprocessing tasks.
-
-3. Keep only the necessary columns: 'CoinName','Algorithm','IsTrading','ProofType','TotalCoinsMined','TotalCoinSupply'
+1. Only the necessary columns were kept: 'CoinName','Algorithm','IsTrading','ProofType','TotalCoinsMined','TotalCoinSupply'
  
-4. Keep only the cryptocurrencies that are trading.
+2. Only the cryptocurrencies that are trading were kept.
 
-5. Keep only the cryptocurrencies with a working algorithm.
+3. Only the cryptocurrencies with a working algorithm were kept.
 
-6. Remove the `IsTrading` column.
+4. Removed the `IsTrading` column.
 
-7. Remove all cryptocurrencies with at least one null value.
+5. Removed all cryptocurrencies with at least one null value.
 
-8. Remove all cryptocurrencies that have no coins mined.
+6. Removed all cryptocurrencies that have no coins mined.
 
-9. Drop all rows where there are 'N/A' text values.
+7. All rows where there are 'N/A' text values were dropped.
 
-10. Store the names of all cryptocurrencies in a DataFrame named `coins_name`, use the `crypto_df.index` as the index for this new DataFrame.
+8. Stored the names of all cryptocurrencies in a DataFrame named `coins_name`, use the `crypto_df.index` as the index for this new DataFrame.
 
-11. Remove the `CoinName` column.
+9. Removed the `CoinName` column.
 
-12. Create dummy variables for all the text features, and store the resulting data in a DataFrame named `X`.
+10. Created dummy variables for all the text features, and store the resulting data in a DataFrame named `X`.
 
-13. Use the [`StandardScaler` from `sklearn`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html) to standardize all the data of the `X` DataFrame. Remember, this is important prior to using PCA and K-Means algorithms.
+11. Used the [`StandardScaler` from `sklearn`](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html) to standardize all the data of the `X` DataFrame. This is an important step prior to using PCA and K-Means algorithms.
 
 #### Reducing Data Dimensions Using PCA
 
-Use the [`PCA` algorithm from `sklearn`](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html) to reduce the dimensions of the `X` DataFrame down to three principal components.
+Used the [`PCA` algorithm from `sklearn`](https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html) to reduce the dimensions of the `X` DataFrame down to three principal components.
 
-Once you have reduced the data dimensions, create a DataFrame named `pcs_df` using as columns names `"PC 1", "PC 2"` and `"PC 3"`;  use the `crypto_df.index` as the index for this new DataFrame.
+Once reduced the data dimensions, created a DataFrame named `pcs_df` using as columns names `"PC 1", "PC 2"` and `"PC 3"`;  used the `crypto_df.index` as the index for this new DataFrame.
 
-You should have a DataFrame like the following:
+The following DataFrame was created:
 
 ![pcs_df](Images/pcs_df.png)
 
 #### Clustering Cryptocurrencies Using K-Means
 
-In this section, you will use the [`KMeans` algorithm from `sklearn`](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) to cluster the cryptocurrencies using the PCA data.
+Used the [`KMeans` algorithm from `sklearn`](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) to cluster the cryptocurrencies using the PCA data.
 
-Perform the following tasks:
+Performed the following tasks:
 
-1. Create an Elbow Curve to find the best value for `k` using the `pcs_df` DataFrame.
+1. Created an Elbow Curve to find the best value for `k` using the `pcs_df` DataFrame.
 
-2. Once you define the best value for `k`, run the `Kmeans` algorithm to predict the `k` clusters for the cryptocurrencies data. Use the `pcs_df` to run the `KMeans` algorithm.
+2. Once the best value for `k` was defined, the `Kmeans` algorithm was executed to predict the `k` clusters for the cryptocurrencies data. Used the `pcs_df` to run the `KMeans` algorithm.
 
-3. Create a new DataFrame named `clustered_df`, that includes the following columns `"Algorithm", "ProofType", "TotalCoinsMined", "TotalCoinSupply", "PC 1", "PC 2", "PC 3", "CoinName", "Class"`. You should maintain the index of the `crypto_df` DataFrames as is shown bellow.
+3. Created a new DataFrame named `clustered_df`, that included the following columns `"Algorithm", "ProofType", "TotalCoinsMined", "TotalCoinSupply", "PC 1", "PC 2", "PC 3", "CoinName", "Class"`. The index of the `crypto_df` DataFrames was created as is shown bellow.
 
     ![clustered_df](Images/clustered_df.png)
 
 #### Visualizing Results
 
-In this section, you will create some data visualization to present the final results. Perform the following tasks:
+Some data visualizations were created to present the final results. Performed the following tasks:
 
-1. Create a 3D-Scatter using Plotly Express to plot the clusters using the `clustered_df` DataFrame. You should include the following parameters on the plot: `hover_name="CoinName"` and `hover_data=["Algorithm"]` to show this additional info on each data point.
+1. Created a 3D-Scatter using Plotly Express to plot the clusters using the `clustered_df` DataFrame. It includes the following parameters on the plot: `hover_name="CoinName"` and `hover_data=["Algorithm"]` to show this additional info on each data point.
 
-2. Use `hvplot.table` to create a data table with all the current tradable cryptocurrencies. The table should have the following columns: `"CoinName", "Algorithm", "ProofType", "TotalCoinSupply", "TotalCoinsMined", "Class"`
+2. Used `hvplot.table` to create a data table with all the current tradable cryptocurrencies. The table have the following columns: `"CoinName", "Algorithm", "ProofType", "TotalCoinSupply", "TotalCoinsMined", "Class"`
 
-3. Create a scatter plot using `hvplot.scatter`, to present the clustered data about cryptocurrencies having `x="TotalCoinsMined"` and `y="TotalCoinSupply"` to contrast the number of available coins versus the total number of mined coins. Use the `hover_cols=["CoinName"]` parameter to include the cryptocurrency name on each data point.
+3. Created a scatter plot using `hvplot.scatter`, to present the clustered data about cryptocurrencies having `x="TotalCoinsMined"` and `y="TotalCoinSupply"` to contrast the number of available coins versus the total number of mined coins. Used the `hover_cols=["CoinName"]` parameter to include the cryptocurrency name on each data point.
 
-### Optional Challenge
+### AWS Sagemaker Deployment
 
-For the challenge section, you have to upload your Jupyter notebook to Amazon SageMaker and deploy it.
+The `hvplot` and Plotly Express libraries are not included in the built-in SageMaker environments, so for this reason the `altair` library  was used instead.
 
-The `hvplot` and Plotly Express libraries are not included in the built-in anaconda environments, so for this challenge section, you should use the `altair` library instead.
+Performed the following tasks:
 
-Perform the following tasks:
+1. Uploaded the Jupyter notebook and renamed it as `crypto_clustering_sm.ipynb`
 
-1. Upload your Jupyter notebook and rename it as `crypto_clustering_sm.ipynb`
+2. Selected the `conda_python3` environment.
 
-2. Select the `conda_python3` environment.
-
-3. Import the `altair` library by running the following code before the initial imports.
+3. Imported the `altair` library by running the following code before the initial imports.
 
   ```python
   !pip install -U altair
   ```
 
-4. Use the `altair` scatter plot to create the Elbow Curve.
+4. Used the `altair` scatter plot to create the Elbow Curve.
 
-5. Use the `altair` scatter plot, instead of the 3D-Scatter from Plotly Express, to visualize the clusters. Since this is a 2D-Scatter, use `x="PC 1"` and `y="PC 2"` for the axes, and add the following columns as tool tips: `"CoinName", "Algorithm", "TotalCoinsMined", "TotalCoinSupply"`.
+5. Used the `altair` scatter plot, instead of the 3D-Scatter from Plotly Express, to visualize the clusters. Since this is a 2D-Scatter, used `x="PC 1"` and `y="PC 2"` for the axes, and added the following columns as tool tips: `"CoinName", "Algorithm", "TotalCoinsMined", "TotalCoinSupply"`.
 
-6. Use the `altair` scatter plot to visualize the tradable cryptocurrencies using  `x="TotalCoinsMined"` and `y="TotalCoinSupply"` for the axes.
+6. Used the `altair` scatter plot to visualize the tradable cryptocurrencies using  `x="TotalCoinsMined"` and `y="TotalCoinSupply"` for the axes.
 
-7. Show the table of current tradable cryptocurrencies using the `display()` command.
+7. Diisplayed the table of current tradable cryptocurrencies using the `display()` command.
 
-8. Remove all `hvplot` and Plotly Express references from your code.
+8. Removed all `hvplot` and Plotly Express references from the code.
 
 #### Complementary Resources
 
